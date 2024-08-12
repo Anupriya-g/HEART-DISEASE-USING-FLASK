@@ -1,0 +1,131 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heart Disease Prediction</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      padding-top: 20px;
+    }
+    
+    .container {
+      max-width: 700px;
+    }
+    
+    .output {
+      margin-top: 20px;
+    }
+    
+    .form-label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">Heart Disease Prediction</h1>
+    <form action="/predict" method="post">
+      <!-- Age -->
+      <div class="mb-3">
+        <label for="query1" class="form-label">Age:</label>
+        <input type="number" class="form-control" id="query1" name="query1" value="{{ query1 }}" required>
+      </div>
+      
+      <!-- Sex -->
+      <div class="mb-3">
+        <label for="query2" class="form-label">Sex (1 = Male; 0 = Female):</label>
+        <input type="number" class="form-control" id="query2" name="query2" value="{{ query2 }}" min="0" max="1" required>
+      </div>
+      
+      <!-- Chest Pain Type -->
+      <div class="mb-3">
+        <label for="query3" class="form-label">Chest Pain Type (0 = Typical Angina; 1 = Atypical Angina; 2 = Non-anginal Pain; 3 = Asymptomatic):</label>
+        <input type="number" class="form-control" id="query3" name="query3" value="{{ query3 }}" min="0" max="3" required>
+      </div>
+      
+      <!-- Resting Blood Pressure -->
+      <div class="mb-3">
+        <label for="query4" class="form-label">Resting Blood Pressure (in mm Hg):</label>
+        <input type="number" class="form-control" id="query4" name="query4" value="{{ query4 }}" required>
+      </div>
+      
+      <!-- Serum Cholesterol -->
+      <div class="mb-3">
+        <label for="query5" class="form-label">Serum Cholesterol (in mg/dl):</label>
+        <input type="number" class="form-control" id="query5" name="query5" value="{{ query5 }}" required>
+      </div>
+      
+      <!-- Fasting Blood Sugar -->
+      <div class="mb-3">
+        <label for="query6" class="form-label">Fasting Blood Sugar > 120 mg/dl (1 = True; 0 = False):</label>
+        <input type="number" class="form-control" id="query6" name="query6" value="{{ query6 }}" min="0" max="1" required>
+      </div>
+      
+      <!-- Resting ECG -->
+      <div class="mb-3">
+        <label for="query7" class="form-label">Resting ECG Results (0 = Normal; 1 = ST-T Wave Abnormality; 2 = Left Ventricular Hypertrophy):</label>
+        <input type="number" class="form-control" id="query7" name="query7" value="{{ query7 }}" min="0" max="2" required>
+      </div>
+      
+      <!-- Maximum Heart Rate -->
+      <div class="mb-3">
+        <label for="query8" class="form-label">Maximum Heart Rate Achieved:</label>
+        <input type="number" class="form-control" id="query8" name="query8" value="{{ query8 }}" required>
+      </div>
+      
+      <!-- Exercise Induced Angina -->
+      <div class="mb-3">
+        <label for="query9" class="form-label">Exercise Induced Angina (1 = Yes; 0 = No):</label>
+        <input type="number" class="form-control" id="query9" name="query9" value="{{ query9 }}" min="0" max="1" required>
+      </div>
+      
+      <!-- ST Depression -->
+      <div class="mb-3">
+        <label for="query10" class="form-label">ST Depression Induced by Exercise Relative to Rest (Oldpeak):</label>
+        <input type="text" class="form-control" id="query10" name="query10" value="{{ query10 }}" required>
+      </div>
+      
+      <!-- Slope -->
+      <div class="mb-3">
+        <label for="query11" class="form-label">Slope of the Peak Exercise ST Segment (0 = Upsloping; 1 = Flat; 2 = Downsloping):</label>
+        <input type="number" class="form-control" id="query11" name="query11" value="{{ query11 }}" min="0" max="2" required>
+      </div>
+      
+      <!-- Number of Major Vessels -->
+      <div class="mb-3">
+        <label for="query12" class="form-label">Number of Major Vessels Colored by Fluoroscopy (0-3):</label>
+        <input type="number" class="form-control" id="query12" name="query12" value="{{ query12 }}" min="0" max="3" required>
+      </div>
+      
+      <!-- Thalassemia -->
+      <div class="mb-3">
+        <label for="query13" class="form-label">Thalassemia (1 = Normal; 2 = Fixed Defect; 3 = Reversible Defect):</label>
+        <input type="number" class="form-control" id="query13" name="query13" value="{{ query13 }}" min="1" max="3" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary w-100">Predict</button>
+    </form>
+    
+    {% if output %}
+    <div class="output alert alert-info text-center">
+      <strong>{{ output }}</strong>
+    </div>
+    {% endif %}
+  </div>
+  
+  <!-- Bootstrap JS (for interactive components) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

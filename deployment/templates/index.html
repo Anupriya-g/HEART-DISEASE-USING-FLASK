@@ -11,31 +11,183 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa;
-      padding-top: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
-    
-    .container {
-      max-width: 700px;
+
+    .dark-mode {
+      background-color: #1f1f1f;
+      color: #e2e2e2;
     }
-    
-    .output {
-      margin-top: 20px;
+
+    .hero {
+      background-image: url('https://www.example.com/heart-health.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      padding: 100px 0;
+      color: #fff;
+      text-align: center;
+      position: relative;
     }
-    
-    .form-label {
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      animation: fadeInDown 1.5s;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      animation: fadeInUp 1.5s;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-section {
+      background-color: #fff;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: -50px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-section h2 {
+      font-size: 1.75rem;
       font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #dc3545;
+      border: none;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #bb2d3b;
+    }
+
+    .features {
+      margin-top: 60px;
+      padding: 60px 0;
+      text-align: center;
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .features h2 {
+      margin-bottom: 40px;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .features .feature-item {
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .features .feature-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature-item i {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-section {
+      background-color: #f8f9fa;
+      padding: 60px 0;
+    }
+
+    .testimonial {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .testimonial img {
+      border-radius: 50%;
+      width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial p {
+      font-style: italic;
+    }
+
+    .dark-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #343a40;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dark-toggle:hover {
+      background-color: #495057;
+    }
+
+    .footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer p {
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="text-center mb-4">Heart Disease Prediction</h1>
+  <!-- Dark Mode Toggle -->
+  <div class="dark-toggle" onclick="toggleDarkMode()">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Predict Your Heart Health</h1>
+    <p>Using cutting-edge technology to assess heart disease risk</p>
+  </div>
+
+  <!-- Form Section -->
+  <div class="container form-section">
+    <h2>Heart Disease Prediction Form</h2>
     <form action="/predict" method="post">
       <!-- Age -->
       <div class="mb-3">
@@ -47,12 +199,6 @@
       <div class="mb-3">
         <label for="query2" class="form-label">Sex (1 = Male; 0 = Female):</label>
         <input type="number" class="form-control" id="query2" name="query2" value="{{ query2 }}" min="0" max="1" required>
-      </div>
-      
-      <!-- Chest Pain Type -->
-      <div class="mb-3">
-        <label for="query3" class="form-label">Chest Pain Type (0 = Typical Angina; 1 = Atypical Angina; 2 = Non-anginal Pain; 3 = Asymptomatic):</label>
-        <input type="number" class="form-control" id="query3" name="query3" value="{{ query3 }}" min="0" max="3" required>
       </div>
       
       <!-- Resting Blood Pressure -->
@@ -115,17 +261,59 @@
         <input type="number" class="form-control" id="query13" name="query13" value="{{ query13 }}" min="1" max="3" required>
       </div>
       
-      <button type="submit" class="btn btn-primary w-100">Predict</button>
+
+      <button type="submit" class="btn btn-primary w-100 mt-4">Predict Now</button>
     </form>
-    
+
     {% if output %}
-    <div class="output alert alert-info text-center">
+    <div class="output alert alert-info text-center mt-4">
       <strong>{{ output }}</strong>
     </div>
     {% endif %}
   </div>
-  
+
+  <!-- Features Section -->
+  <div class="features">
+    <div class="container">
+      <h2>Why Choose Us?</h2>
+      <div class="row">
+        <div class="col-md-4 feature-item">
+          <i class="fas fa-heartbeat"></i>
+          <p>Accurate Predictions</p>
+        </div>
+        <div class="col-md-4 feature-item">
+          <i class="fas fa-user-md"></i>
+          <p>Expert Consultation</p>
+        </div>
+        <div class="col-md-4 feature-item">
+          <i class="fas fa-stethoscope"></i>
+          <p>Quick and Easy Tests</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="footer">
+    <div class="container">
+      <p>&copy; 2024 Heart Disease Prediction. All Rights Reserved.</p>
+    </div>
+  </div>
+
   <!-- Bootstrap JS (for interactive components) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const toggleIcon = document.querySelector('.dark-toggle i');
+      if (document.body.classList.contains('dark-mode')) {
+        toggleIcon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        toggleIcon.classList.replace('fa-sun', 'fa-moon');
+      }
+    }
+  </script>
 </body>
 </html>
